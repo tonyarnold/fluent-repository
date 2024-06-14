@@ -1,7 +1,8 @@
-import Vapor
+import FluentKit
 
 public protocol Repository: Sendable {
-    var request: Request { get }
+    /// The database that this repository will interact with.
+    var database: Database { get }
 
-    init(request: Request)
+    init(database: Database)
 }
