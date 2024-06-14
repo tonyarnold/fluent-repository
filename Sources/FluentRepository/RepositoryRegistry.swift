@@ -8,7 +8,7 @@ public actor RepositoryRegistry {
 
     public func register(
         _ id: RepositoryIdentifier,
-        _ builder: @escaping (Request) -> Repository
+        _ builder: @Sendable @escaping (Request) -> Repository
     ) {
         builders[id] = builder
     }
