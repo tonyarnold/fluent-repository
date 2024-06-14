@@ -1,15 +1,18 @@
 import Vapor
 
 public struct RepositoryFactory: Sendable {
-    init(_ req: Request, _ registry: RepositoryRegistry) {
-        self.req = req
+    init(
+        request: Request,
+        registry: RepositoryRegistry
+    ) {
+        self.request = request
         self.registry = registry
     }
 
-    public func make(_ id: RepositoryIdentifier) async -> Repository {
-        await registry.make(id, req)
+    public func make(for id: RepositoryIdentifier) async -> Repository {
+        await registry.makeRepository(for: id, request: request)
     }
 
     private var registry: RepositoryRegistry
-    private var req: Request
+    private var request: Request
 }

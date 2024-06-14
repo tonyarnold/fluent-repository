@@ -1,5 +1,5 @@
 import Vapor
 
 public protocol Repository: Sendable {
-    init(_ req: Request)
+    init(_ request: Request)
 }

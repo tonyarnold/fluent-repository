@@ -6,19 +6,22 @@ public actor RepositoryRegistry {
         self.builders = [:]
     }
 
-    public func register(_ id: RepositoryIdentifier, _ builder: @escaping (Request) -> Repository) {
+    public func register(
+        for id: RepositoryIdentifier,
+        _ builder: @escaping (Request) -> Repository
+    ) {
         builders[id] = builder
     }
 
-    func builder(_ req: Request) -> RepositoryFactory {
-        .init(req, self)
+    func builder(_ request: Request) -> RepositoryFactory {
+        .init(request: request, registry: self)
     }
 
-    func make(_ id: RepositoryIdentifier, _ req: Request) -> Repository {
+    func makeRepository(for id: RepositoryIdentifier, request: Request) -> Repository {
         guard let builder = builders[id] else {
             fatalError("Repository with identifier `\(id.string)` is not configured.")
         }
-        return builder(req)
+        return builder(request)
     }
 
     private let app: Application
