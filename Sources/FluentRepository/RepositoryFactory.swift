@@ -9,7 +9,7 @@ public struct RepositoryFactory: Sendable {
         self.registry = registry
     }
 
-    public func make(for id: RepositoryIdentifier) async -> Repository {
+    public func make(_ id: RepositoryIdentifier) async -> Repository {
         await registry.makeRepository(for: id, request: request)
     }
 
